@@ -1,7 +1,7 @@
 {
-  "name": "@gethinode/mod-template",
+  "name": "@gethinode/mod-lottie",
   "version": "0.0.0",
-  "description": "A template to define a Hugo module compatible with Hinode",
+  "description": "A Hugo module to add animations powered by Lottie to your Hinode site",
   "keywords": [
     "hugo",
     "module"
@@ -12,21 +12,21 @@
     "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
-    "prestart":    "npm run clean && npm run mod:vendor",
-    "start":       "hugo server -s exampleSite --bind=0.0.0.0 --disableFastRender --printI18nWarnings",
-    "prebuild":    "npm run clean && npm run mod:vendor",
-    "build":       "hugo --gc --minify -s exampleSite",
-    "clean":       "rimraf exampleSite/public exampleSite/resources",
-    "mod:clean":   "hugo mod clean",
-    "mod:update":  "rimraf _vendor && hugo mod get -u ./... && hugo mod get -u && npm run -s mod:vendor && npm run -s mod:tidy",
-    "mod:tidy":    "hugo mod tidy",
-    "mod:vendor":  "rimraf _vendor && hugo mod vendor",
+    "prestart": "npm run clean && npm run mod:vendor",
+    "start": "hugo server -s exampleSite --bind=0.0.0.0 --disableFastRender --printI18nWarnings",
+    "prebuild": "npm run clean && npm run mod:vendor",
+    "build": "hugo --gc --minify -s exampleSite",
+    "clean": "rimraf exampleSite/public exampleSite/resources",
+    "mod:clean": "hugo mod clean",
+    "mod:update": "rimraf _vendor && hugo mod get -u ./... && hugo mod get -u && npm run -s mod:vendor && npm run -s mod:tidy",
+    "mod:tidy": "hugo mod tidy",
+    "mod:vendor": "rimraf _vendor && hugo mod vendor",
     "postinstall": "echo TODO: add postinstall instructions",
-    "test":        "npm run -s build"
+    "test": "npm run -s build"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gethinode/mod-template.git"
+    "url": "git+https://github.com/gethinode/mod-lottie.git"
   },
   "author": "Mark Dumay",
   "license": "MIT",
@@ -39,6 +39,8 @@
     "@semantic-release/git": "^10.0.1",
     "cpy-cli": "^5.0.0",
     "hugo-bin": "^0.114.2",
+    "install": "^0.13.0",
+    "npm": "^10.1.0",
     "rimraf": "^5.0.0",
     "semantic-release": "^22.0.4"
   },

@@ -3,12 +3,14 @@
     extended = true
     min = "0.110.0"
     max = ""
+  [[module.imports]]
+    path = "github.com/airbnb/lottie-web"
+  [[module.imports.mounts]]
+    source = "build/player/lottie.js"
+    target = "assets/js/modules/lottie/lottie.js"
   [[module.mounts]]
     source = 'layouts'
     target = 'layouts'
   [[module.mounts]]
     source = 'assets'
     target = 'assets'
-  [[module.mounts]]
-    source = 'static'
-    target = 'static'

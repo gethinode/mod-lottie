@@ -1,0 +1,48 @@
+{{- $id := printf "lottie-animation-%d" .Ordinal -}}
+{{ with .Get "id" }}
+    {{ $id = . }}
+{{ end }}
+
+{{ $class := .Get "class" }}
+
+{{ $error := false }}
+
+{{ $loop := .Get "loop" | default true -}}
+{{ $auto := .Get "auto" | default true -}}
+{{ $hover := .Get "hover" | default false -}}
+{{ $title := .Get "title" -}}
+{{ $data := .Get "data" -}}
+
+
+{{- if ne (printf "%T" $loop) "bool" -}}
+    {{- errorf "Invalid value for param 'loop': %s" .Position -}}
+    {{- $error = true -}}
+{{- end -}}
+
+{{- if ne (printf "%T" $auto) "bool" -}}
+    {{- errorf "Invalid value for param 'auto': %s" .Position -}}
+    {{- $error = true -}}
+{{- end -}}
+
+{{- if ne (printf "%T" $hover) "bool" -}}
+    {{- errorf "Invalid value for param 'hover': %s" .Position -}}
+    {{- $error = true -}}
+{{- end -}}
+
+{{- if not $data -}}
+    {{- errorf "Missing value for param 'data': %s" .Position -}}
+    {{- $error = true -}}
+{{- end -}}
+
+{{- if and $data (not (fileExists (path.Join "static" $data))) -}}
+    {{- errorf "Cannot find data: '%s' at %s" $data .Position -}}
+    {{- $error = true -}}
+{{- end -}}
+
+<div id="{{ $id }}" class="lottie-animation {{ $class }}"
+    {{ with $loop }}data-lottie-loop="{{ . }}"{{ end }}
+    {{ with $auto }}data-lottie-auto="{{ . }}"{{ end }}
+    {{ with $hover }}data-lottie-hover="{{ . }}"{{ end }}
+    {{ with $title }}data-lottie-title="{{ . }}"{{ end }}
+    {{ with $data }}data-lottie-data="{{ . }}"{{ end }}>
+</div>

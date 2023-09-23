@@ -1,11 +1,14 @@
 baseURL = 'http://example.org/'
 languageCode = 'en-us'
-title = 'Test site for mod-template'
+title = 'Test site for mod-lottie'
 
 [module]
-  replacements = 'github.com/gethinode/mod-template -> ../..'
+  replacements = 'github.com/gethinode/mod-lottie -> ../..'
   [[module.imports]]
-    path = "github.com/gethinode/mod-template"
+    path = "github.com/gethinode/mod-lottie"
+  [[module.imports.mounts]]
+    source = "assets"
+    target = "assets"
   [[module.imports.mounts]]
     source = "dist"
     target = "static"

@@ -39,10 +39,14 @@
     {{- $error = true -}}
 {{- end -}}
 
-<div id="{{ $id }}" class="lottie-animation {{ $class }}"
-    {{ with $loop }}data-lottie-loop="{{ . }}"{{ end }}
-    {{ with $auto }}data-lottie-auto="{{ . }}"{{ end }}
-    {{ with $hover }}data-lottie-hover="{{ . }}"{{ end }}
-    {{ with $title }}data-lottie-title="{{ . }}"{{ end }}
-    {{ with $data }}data-lottie-data="{{ . }}"{{ end }}>
-</div>
+{{- $data = path.Join "/" $data -}}
+
+{{- if not $error -}}
+    <div id="{{ $id }}" class="lottie-animation {{ $class }}"
+        {{ with $loop }}data-lottie-loop="{{ . }}"{{ end }}
+        {{ with $auto }}data-lottie-auto="{{ . }}"{{ end }}
+        {{ with $hover }}data-lottie-hover="{{ . }}"{{ end }}
+        {{ with $title }}data-lottie-title="{{ . }}"{{ end }}
+        {{ with $data }}data-lottie-data="{{ . }}"{{ end }}>
+    </div>
+{{- end -}}

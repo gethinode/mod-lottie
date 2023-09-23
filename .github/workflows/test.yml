@@ -1,13 +1,13 @@
 name: Test
 on:
   workflow_dispatch:
-  # TODO: uncomment
-  # push:
-  #   tags:
-  #     - v*
-  #   branches: [ main ]
-  # pull_request:
-  #   branches: [ main ]
+  TODO: uncomment
+  push:
+    tags:
+      - v*
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   build:

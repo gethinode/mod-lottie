@@ -6,8 +6,8 @@
   [[module.imports]]
     path = "github.com/airbnb/lottie-web"
   [[module.imports.mounts]]
-    source = "build/player/lottie.js"
-    target = "assets/js/modules/lottie/lottie.js"
+    source = "build/player/lottie_light.js"
+    target = "assets/js/modules/lottie/lottie_light.js"
   [[module.mounts]]
     source = 'layouts'
     target = 'layouts'

@@ -42,7 +42,22 @@ Hinode is a clean blog theme for [Hugo][hugo], an open-source static site genera
 [blog]: https://markdumay.com
 -->
 
+## Notes
+
+This modules uses [Lottie Light][lottie_light] by default. The `lottie_light.js` player is a lighter version of lottie that supports only the svg renderer and does not support expressions or effects. Canvas and html renderers are not supported either.
+
+You can adjust the mount point in `config.toml` to use the default library instead. Please note that you need to enable `unsafe-eval` in your [Content Security Policy][mozilla_csp_script] then (see Lottie issue [#2173][lottie_issue_2173]).
+
+```toml
+[[module.imports.mounts]]
+source = "build/player/lottie.js"
+target = "assets/js/modules/lottie/lottie.js"
+```
+
 [hinode_docs]: https://gethinode.com
 [lottie]: http://airbnb.io/lottie/
+[lottie_light]: https://github.com/airbnb/lottie-web/wiki/Lottie-Light
+[lottie_issue_2173]: https://github.com/airbnb/lottie-web/issues/2173
+[mozilla_csp_script]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/script-src
 [repository]: https://github.com/gethinode/hinode.git
 [repository_template]: https://github.com/gethinode/template.git

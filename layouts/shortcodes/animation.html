@@ -1,18 +1,12 @@
-{{- $id := printf "lottie-animation-%d" .Ordinal -}}
-{{ with .Get "id" }}
-    {{ $id = . }}
-{{ end }}
-
-{{ $class := .Get "class" }}
-
 {{ $error := false }}
 
+{{- $id := or (.Get "id") (printf "lottie-animation-%d" .Ordinal) -}}
+{{ $class := .Get "class" }}
 {{ $loop := .Get "loop" | default true -}}
 {{ $auto := .Get "auto" | default true -}}
 {{ $hover := .Get "hover" | default false -}}
 {{ $title := .Get "title" -}}
 {{ $data := .Get "data" -}}
-
 
 {{- if ne (printf "%T" $loop) "bool" -}}
     {{- errorf "Invalid value for param 'loop': %s" .Position -}}
@@ -42,11 +36,13 @@
 {{- $data = path.Join "/" $data -}}
 
 {{- if not $error -}}
-    <div id="{{ $id }}" class="lottie-animation {{ $class }}"
-        {{ with $loop }}data-lottie-loop="{{ . }}"{{ end }}
-        {{ with $auto }}data-lottie-auto="{{ . }}"{{ end }}
-        {{ with $hover }}data-lottie-hover="{{ . }}"{{ end }}
-        {{ with $title }}data-lottie-title="{{ . }}"{{ end }}
-        {{ with $data }}data-lottie-data="{{ . }}"{{ end }}>
-    </div>
+    {{ partial "assets/animation.html" (dict 
+        "id" $id
+        "class" $class
+        "loop" $loop
+        "auto" $auto
+        "hover" $hover
+        "title" $title
+        "data" $data
+    ) }}
 {{- end -}}

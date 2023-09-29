@@ -1,7 +1,7 @@
 ---
 title: Test site
 description: Site to test animation shortcode.
-date: 2023-09-23
+date: 2023-09-29
 ---
 
 ## Animate automatically
@@ -10,4 +10,4 @@ date: 2023-09-23
 
 ## Animate on hover
 
-{{< animation data="gatin.json" auto=false hover=true >}}
+{{< animation data="gatin.json" auto=false hover=true loop=false >}}

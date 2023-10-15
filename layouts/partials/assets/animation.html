@@ -1,3 +1,26 @@
+{{- define "partials/assets/animation-body.html" }}
+    {{- $id := .id -}}
+    {{- $class := .class -}}
+    {{- $loop := .loop -}}
+    {{- $auto := .auto -}}
+    {{- $hover := .hover -}}
+    {{- $title := .title -}}
+    {{- $data := .data -}}
+
+    {{- if and $data (not (fileExists (path.Join "static" $data))) -}}
+        {{- errorf "partial [assets/animation.html] - Cannot find data: %s" $data -}}
+    {{ else }}
+        {{- $data = path.Join "/" $data -}}
+        <div id="{{ $id }}" class="lottie-animation{{ with $class}} {{ . }}{{ end }}"
+            {{ with $loop }}data-lottie-loop="{{ . }}"{{ end }}
+            {{ with $auto }}data-lottie-auto="{{ . }}"{{ end }}
+            {{ with $hover }}data-lottie-hover="{{ . }}"{{ end }}
+            {{ with $title }}data-lottie-title="{{ . }}"{{ end }}
+            {{ with $data }}data-lottie-data="{{ . }}"{{ end }}>
+        </div>
+    {{- end -}}
+{{- end -}}
+
 {{- $id := .id -}}
 {{- $class := .class -}}
 {{- $loop := .loop | default true -}}
@@ -5,6 +28,8 @@
 {{- $hover := .hover | default false -}}
 {{- $title := .title -}}
 {{- $data := .data -}}
+{{- $mode := .mode | default false -}}
+{{- $modes := site.Params.main.modes | default (slice "light" "dark") -}}
 
 {{- if ne (printf "%T" $loop) "bool" -}}
     {{- errorf "partial [assets/animation.html] - Invalid value for param 'loop'" -}}
@@ -22,16 +47,44 @@
     {{- errorf "partial [assets/animation.html] - Missing value for param 'data'" -}}
 {{- end -}}
 
-{{- if and $data (not (fileExists (path.Join "static" $data))) -}}
-    {{- errorf "partial [assets/animation.html] - Cannot find data: " $data -}}
+{{- if ne (printf "%T" $mode) "bool" -}}
+    {{- errorf "partial [assets/animation.html] - Invalid value for param 'mode'" -}}
 {{- end -}}
 
-{{- $data = path.Join "/" $data -}}
+{{- $files := slice -}}
 
-<div id="{{ $id }}" class="lottie-animation{{ with $class}} {{ . }}{{ end }}"
-    {{ with $loop }}data-lottie-loop="{{ . }}"{{ end }}
-    {{ with $auto }}data-lottie-auto="{{ . }}"{{ end }}
-    {{ with $hover }}data-lottie-hover="{{ . }}"{{ end }}
-    {{ with $title }}data-lottie-title="{{ . }}"{{ end }}
-    {{ with $data }}data-lottie-data="{{ . }}"{{ end }}>
-</div>
+{{- if $mode -}}
+    {{- $ext := path.Ext $data -}}
+    {{- $base := strings.TrimSuffix $ext $data -}}
+    {{- range $suffix := $modes -}}
+        {{- $base = strings.TrimSuffix (printf "-%s" $suffix) $base -}}
+    {{- end -}}
+
+    {{- range $suffix := $modes -}}
+        {{- $files = $files | append (dict "path" (printf "%s-%s%s" $base $suffix $ext) "mode" $suffix) -}}
+    {{- end -}}
+{{ else }}
+    {{- $files = $files | append (dict "path" $data "mode" "") -}}    
+{{- end -}}
+
+{{ range $files }}
+    {{- $display := $class -}}
+    {{- $current := .mode }}
+    {{ if $current }}
+        {{- range $none := $modes -}}
+            {{- if ne $none $current -}}
+                {{ $display = printf "%s d-none-%s" $class $none }}
+            {{- end -}}
+        {{- end -}}
+    {{ end -}}
+    
+    {{- partial "partials/assets/animation-body.html" (dict 
+        "id" $id
+        "class" $display
+        "loop" $loop
+        "auto" $auto
+        "hover" $hover
+        "title" $title
+        "data" .path)
+    -}}
+{{ end }}

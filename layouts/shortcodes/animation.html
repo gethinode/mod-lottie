@@ -1,12 +1,14 @@
 {{ $error := false }}
 
 {{- $id := or (.Get "id") (printf "lottie-animation-%d" .Ordinal) -}}
-{{ $class := .Get "class" }}
-{{ $loop := .Get "loop" | default true -}}
-{{ $auto := .Get "auto" | default true -}}
-{{ $hover := .Get "hover" | default false -}}
-{{ $title := .Get "title" -}}
-{{ $data := .Get "data" -}}
+{{- $class := .Get "class" -}}
+{{- $loop := .Get "loop" | default true -}}
+{{- $auto := .Get "auto" | default true -}}
+{{- $hover := .Get "hover" | default false -}}
+{{- $title := .Get "title" -}}
+{{- $data := .Get "data" -}}
+{{- $mode := .Get "mode" | default false -}}
+{{- $modes := site.Params.main.modes | default (slice "light" "dark") -}}
 
 {{- if ne (printf "%T" $loop) "bool" -}}
     {{- errorf "Invalid value for param 'loop': %s" .Position -}}
@@ -28,12 +30,23 @@
     {{- $error = true -}}
 {{- end -}}
 
-{{- if and $data (not (fileExists (path.Join "static" $data))) -}}
+{{- if $mode }}
+    {{- $ext := path.Ext $data -}}
+    {{- $base := strings.TrimSuffix $ext $data -}}
+    {{- range $suffix := $modes -}}
+        {{- $base = strings.TrimSuffix (printf "-%s" $suffix) $base -}}
+    {{- end }}
+    {{- range $suffix := $modes -}}
+        {{- $path := (printf "%s-%s%s" $base $suffix $ext) -}}
+        {{- if not (fileExists (path.Join "static" $path)) -}}
+            {{- errorf "Cannot find data: '%s' at %s" $path $.Position -}}
+            {{- $error = true -}}
+        {{- end -}}
+    {{- end -}}
+{{ else if and $data (not (fileExists (path.Join "static" $data))) -}}
     {{- errorf "Cannot find data: '%s' at %s" $data .Position -}}
     {{- $error = true -}}
 {{- end -}}
-
-{{- $data = path.Join "/" $data -}}
 
 {{- if not $error -}}
     {{ partial "assets/animation.html" (dict 
@@ -44,5 +57,6 @@
         "hover" $hover
         "title" $title
         "data" $data
+        "mode" $mode
     ) }}
 {{- end -}}

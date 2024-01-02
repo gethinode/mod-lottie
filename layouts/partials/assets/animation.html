@@ -1,3 +1,11 @@
+<!-- 
+    Copyright © 2024 The Hinode Team / Mark Dumay. All rights reserved.
+    Use of this source code is governed by The MIT License (MIT) that can be found in the LICENSE file.
+    Visit gethinode.com/license for more details.
+-->
+
+{{ $error := false }}
+
 {{- define "partials/assets/animation-body.html" }}
     {{- $id := .id -}}
     {{- $class := .class -}}
@@ -21,6 +29,13 @@
     {{- end -}}
 {{- end -}}
 
+<!-- Validate arguments -->
+{{ if partial "utilities/IsInvalidArgs.html" (dict "structure" "animation" "args" . "group" "partial") }}
+    {{- errorf "partial [assets/animation.html] - Invalid arguments" -}}
+    {{ $error = true }}
+{{ end }}
+
+<!-- Initialize arguments -->
 {{- $id := .id -}}
 {{- $class := .class -}}
 {{- $loop := .loop | default true -}}
@@ -30,26 +45,6 @@
 {{- $data := .data -}}
 {{- $mode := .mode | default false -}}
 {{- $modes := site.Params.main.modes | default (slice "light" "dark") -}}
-
-{{- if ne (printf "%T" $loop) "bool" -}}
-    {{- errorf "partial [assets/animation.html] - Invalid value for param 'loop'" -}}
-{{- end -}}
-
-{{- if ne (printf "%T" $auto) "bool" -}}
-    {{- errorf "partial [assets/animation.html] - Invalid value for param 'auto'" -}}
-{{- end -}}
-
-{{- if ne (printf "%T" $hover) "bool" -}}
-    {{- errorf "partial [assets/animation.html] - Invalid value for param 'hover'" -}}
-{{- end -}}
-
-{{- if not $data -}}
-    {{- errorf "partial [assets/animation.html] - Missing value for param 'data'" -}}
-{{- end -}}
-
-{{- if ne (printf "%T" $mode) "bool" -}}
-    {{- errorf "partial [assets/animation.html] - Invalid value for param 'mode'" -}}
-{{- end -}}
 
 {{- $files := slice -}}
 
@@ -67,6 +62,7 @@
     {{- $files = $files | append (dict "path" $data "mode" "") -}}    
 {{- end -}}
 
+<!-- Main code -->
 {{ range $files }}
     {{- $display := $class -}}
     {{- $current := .mode }}

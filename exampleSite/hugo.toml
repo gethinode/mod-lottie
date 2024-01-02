@@ -10,6 +10,9 @@ title = 'Test site for mod-lottie'
     source = "assets"
     target = "assets"
   [[module.imports.mounts]]
+    source = "data"
+    target = "data"
+  [[module.imports.mounts]]
     source = "dist"
     target = "static"
   [[module.imports.mounts]]

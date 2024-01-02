@@ -1,5 +1,18 @@
+<!-- 
+    Copyright © 2024 The Hinode Team / Mark Dumay. All rights reserved.
+    Use of this source code is governed by The MIT License (MIT) that can be found in the LICENSE file.
+    Visit gethinode.com/license for more details.
+-->
+
 {{ $error := false }}
 
+<!-- Validate arguments -->
+{{ if partial "utilities/IsInvalidArgs.html" (dict "structure" "animation" "args" .Params) }}
+    {{ errorf "Invalid arguments: %s" .Position -}}
+    {{ $error = true }}
+{{ end }}
+
+<!-- Initialize arguments -->
 {{- $id := or (.Get "id") (printf "lottie-animation-%d" .Ordinal) -}}
 {{- $class := .Get "class" -}}
 {{- $loop := .Get "loop" | default true -}}
@@ -9,26 +22,6 @@
 {{- $data := .Get "data" -}}
 {{- $mode := .Get "mode" | default false -}}
 {{- $modes := site.Params.main.modes | default (slice "light" "dark") -}}
-
-{{- if ne (printf "%T" $loop) "bool" -}}
-    {{- errorf "Invalid value for param 'loop': %s" .Position -}}
-    {{- $error = true -}}
-{{- end -}}
-
-{{- if ne (printf "%T" $auto) "bool" -}}
-    {{- errorf "Invalid value for param 'auto': %s" .Position -}}
-    {{- $error = true -}}
-{{- end -}}
-
-{{- if ne (printf "%T" $hover) "bool" -}}
-    {{- errorf "Invalid value for param 'hover': %s" .Position -}}
-    {{- $error = true -}}
-{{- end -}}
-
-{{- if not $data -}}
-    {{- errorf "Missing value for param 'data': %s" .Position -}}
-    {{- $error = true -}}
-{{- end -}}
 
 {{- if $mode }}
     {{- $ext := path.Ext $data -}}
@@ -48,6 +41,7 @@
     {{- $error = true -}}
 {{- end -}}
 
+<!-- Main code -->
 {{- if not $error -}}
     {{ partial "assets/animation.html" (dict 
         "id" $id

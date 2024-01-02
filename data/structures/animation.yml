@@ -1,0 +1,51 @@
+comment: >-
+  Use the animation shortcode to show an After Effects animation, powered by
+  Lottie. The Lottie library supports animations that have been exported as JSON
+  with Bodymovin. The animation uses vector graphics and is responsive. The
+  shortcode is a simplified wrapper of the Lottie library that provides basic
+  functionality.
+arguments:
+  data:
+    type: string
+    optional: false
+    comment: >-
+      Path of the JSON file that contains the animation, relative to the static
+      folder.
+  id:
+    type: string
+    optional: true
+    comment: >-
+      Unique identifier of the animation element, defaults to
+      `lottie-animation-n` with a sequential number `n`.
+  class:
+    type: string
+    optional: true
+    comment: Class attribute of the container element.
+  loop:
+    type: bool
+    optional: true
+    default: true
+    comment: Flag to indicate the animation should play in a loop.
+  auto:
+    type: bool
+    optional: true
+    default: true
+    comment: Flag to indicate the animation should start playing automatically.
+  hover:
+    type: bool
+    optional: true
+    default: false
+    comment: >-
+      Flag to indicate the animation should start playing when hovering the
+      mouse over it.
+  title:
+    type: string
+    optional: true
+    comment: Accessibility title.    
+  mode:
+    type: bool
+    optional: true
+    comment: >-
+      Flag indicating if the animation should support color modes. If set, the
+      shortcode searches for data files that having a matching color-mode suffix
+      such as `-light` or `-dark`.

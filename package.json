@@ -1,6 +1,6 @@
 {
   "name": "@gethinode/mod-lottie",
-  "version": "1.4.6",
+  "version": "1.4.7",
   "description": "A Hugo module to add animations powered by Lottie to your Hinode site",
   "keywords": [
     "hugo",

@@ -1,6 +1,6 @@
 {
   "name": "@gethinode/mod-lottie",
-  "version": "1.4.1",
+  "version": "1.4.7",
   "description": "A Hugo module to add animations powered by Lottie to your Hinode site",
   "keywords": [
     "hugo",
@@ -38,11 +38,11 @@
     "@semantic-release/exec": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "cpy-cli": "^5.0.0",
-    "hugo-bin": "^0.119.0",
+    "hugo-bin": "^0.123.1",
     "install": "^0.13.0",
-    "npm": "^10.1.0",
-    "rimraf": "^5.0.0",
-    "semantic-release": "^23.0.0"
+    "npm": "^10.8.0",
+    "rimraf": "^5.0.7",
+    "semantic-release": "^23.1.1"
   },
   "hugo-bin": {
     "buildTags": "extended"

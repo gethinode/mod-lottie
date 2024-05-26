@@ -14,10 +14,10 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Setup Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: lts/*
         cache: 'npm'
@@ -37,7 +37,7 @@ jobs:
         echo 'EOF' >> $GITHUB_OUTPUT
 
     - name: Create Pull Request
-      uses: gethinode-actions/create-pull-request@v5
+      uses: gethinode-actions/create-pull-request@v6
       with:
         token: ${{ secrets.HUGO_MOD_PR }}
         commit-message: 'fix: update Hugo module dependencies'

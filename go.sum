@@ -10,3 +10,11 @@ github.com/gethinode/mod-utils/v2 v2.0.2 h1:pocFT/mWPcfmABltZwe76D1IB3TZIrD1k1kH
 github.com/gethinode/mod-utils/v2 v2.0.2/go.mod h1:GTYeknoLujNjfDxI+V9Dcug26CYJSTJ0B/U2dagw9oY=
 github.com/gethinode/mod-utils/v2 v2.0.3 h1:4BsRNGi+0a3Mq021Gq/TwDNiyuIfZ8xnpYU0DkNbUYI=
 github.com/gethinode/mod-utils/v2 v2.0.3/go.mod h1:GTYeknoLujNjfDxI+V9Dcug26CYJSTJ0B/U2dagw9oY=
+github.com/gethinode/mod-utils/v2 v2.1.0 h1:5I0IN/AX5qPFYx7tjWXk59GBevTJzixxZUGj9MJ0b8M=
+github.com/gethinode/mod-utils/v2 v2.1.0/go.mod h1:GTYeknoLujNjfDxI+V9Dcug26CYJSTJ0B/U2dagw9oY=
+github.com/gethinode/mod-utils/v2 v2.1.1 h1:aLBcS9Zbx+dqnu5oBsTM01AkkN5nwwifgbV4D0qiHnM=
+github.com/gethinode/mod-utils/v2 v2.1.1/go.mod h1:GTYeknoLujNjfDxI+V9Dcug26CYJSTJ0B/U2dagw9oY=
+github.com/gethinode/mod-utils/v2 v2.2.2 h1:ZRxWIJKmZIDYsoMS3WhxxC+BWJrkd1dcZ8rz/cLZExc=
+github.com/gethinode/mod-utils/v2 v2.2.2/go.mod h1:GTYeknoLujNjfDxI+V9Dcug26CYJSTJ0B/U2dagw9oY=
+github.com/gethinode/mod-utils/v2 v2.3.0 h1:e3uhlAGasvXe+cgvcmzRe05Zo4UEx86uk0TbnxtyB6U=
+github.com/gethinode/mod-utils/v2 v2.3.0/go.mod h1:GTYeknoLujNjfDxI+V9Dcug26CYJSTJ0B/U2dagw9oY=

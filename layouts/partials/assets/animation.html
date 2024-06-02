@@ -18,7 +18,7 @@
     {{- if and $data (not (fileExists (path.Join "static" $data))) -}}
         {{- errorf "partial [assets/animation.html] - Cannot find data: %s" $data -}}
     {{ else }}
-        {{- $data = path.Join "/" $data -}}
+        {{- $data = partial "utilities/GetStaticURL" (dict "url" $data) -}}
         <div id="{{ $id }}" class="lottie-animation{{ with $class}} {{ . }}{{ end }}"
             {{ with $loop }}data-lottie-loop="{{ . }}"{{ end }}
             {{ with $auto }}data-lottie-auto="{{ . }}"{{ end }}

@@ -42,7 +42,7 @@
     "install": "^0.13.0",
     "npm": "^10.8.3",
     "rimraf": "^6.0.1",
-    "semantic-release": "^24.1.1"
+    "semantic-release": "^24.1.2"
   },
   "hugo-bin": {
     "buildTags": "extended"

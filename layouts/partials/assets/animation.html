@@ -6,7 +6,7 @@
 
 {{ $error := false }}
 
-{{- define "partials/assets/animation-body.html" }}
+{{- define "partials/inline/animation-body.html" }}
     {{- $id := .id -}}
     {{- $class := .class -}}
     {{- $loop := .loop -}}
@@ -74,7 +74,7 @@
         {{- end -}}
     {{ end -}}
     
-    {{- partial "partials/assets/animation-body.html" (dict 
+    {{- partial "inline/animation-body.html" (dict 
         "id" $id
         "class" $display
         "loop" $loop

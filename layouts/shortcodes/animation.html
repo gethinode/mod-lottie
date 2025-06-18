@@ -1,29 +1,41 @@
-<!-- 
-    Copyright © 2024 The Hinode Team / Mark Dumay. All rights reserved.
+{{/* 
+    Copyright © 2024 - 2025 The Hinode Team / Mark Dumay. All rights reserved.
     Use of this source code is governed by The MIT License (MIT) that can be found in the LICENSE file.
     Visit gethinode.com/license for more details.
--->
+*/}}
 
 {{ $error := false }}
 
-<!-- Validate arguments -->
-{{ if partial "utilities/IsInvalidArgs.html" (dict "structure" "animation" "args" .Params) }}
-    {{ errorf "Invalid arguments: %s" .Position -}}
-    {{ $error = true }}
+{{/* Validate and initialize arguments */}}
+{{ $args := partial "utilities/InitArgs.html" (dict "structure" "animation" "args" .Params "named" .IsNamedParams "group" "shortcode") }}
+{{ if or $args.err $args.warnmsg }}
+    {{ partial (cond $args.err "utilities/LogErr.html" "utilities/LogWarn.html") (dict 
+        "partial"  "shortcodes/animation.html" 
+        "warnid"   "warn-invalid-arguments"
+        "msg"      "Invalid arguments"
+        "details"  ($args.errmsg | append $args.warnmsg)
+        "file"     page.File
+        "position" .Position
+    )}}
+    {{ $error = $args.err }}
 {{ end }}
 
-<!-- Initialize arguments -->
-{{- $id := or (.Get "id") (printf "lottie-animation-%d" .Ordinal) -}}
-{{- $class := .Get "class" -}}
-{{- $loop := .Get "loop" | default true -}}
-{{- $auto := .Get "auto" | default true -}}
-{{- $hover := .Get "hover" | default false -}}
-{{- $title := .Get "title" -}}
-{{- $data := .Get "data" -}}
-{{- $mode := .Get "mode" | default false -}}
+{{/* Initialize arguments and default values */}}
+{{- $id := or $args.id  (printf "lottie-animation-%d" .Ordinal) -}}
 {{- $modes := site.Params.main.modes | default (slice "light" "dark") -}}
+{{- $data := or $args.animationData $args.data -}}
+{{- if not $data -}}
+    {{ partial "utilities/LogErr.html" (dict 
+        "partial"  "shortcodes/animation.html" 
+        "msg"      "Invalid arguments"
+        "details"  (slice "Missing argument 'animation-data'")
+        "file"     page.File
+        "position" .Position
+    )}}
+    {{- $error = true -}}
+{{- end -}}
 
-{{- if $mode }}
+{{- if and $data $args.mode }}
     {{- $ext := path.Ext $data -}}
     {{- $base := strings.TrimSuffix $ext $data -}}
     {{- range $suffix := $modes -}}
@@ -44,13 +56,13 @@
 <!-- Main code -->
 {{- if not $error -}}
     {{ partial "assets/animation.html" (dict 
-        "id" $id
-        "class" $class
-        "loop" $loop
-        "auto" $auto
-        "hover" $hover
-        "title" $title
-        "data" $data
-        "mode" $mode
+        "id"             $id
+        "class"          $args.class
+        "loop"           $args.loop
+        "autoplay"       (or $args.autoplay $args.auto)
+        "hover"          $args.hover
+        "label"          (or $args.label $args.title)
+        "animation-data" (or $args.animationData $args.data)
+        "mode"           $args.mode
     ) }}
 {{- end -}}

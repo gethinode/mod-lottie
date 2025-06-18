@@ -1,8 +1,8 @@
-<!-- 
-    Copyright © 2024 The Hinode Team / Mark Dumay. All rights reserved.
+{{/* 
+    Copyright © 2024 - 2025 The Hinode Team / Mark Dumay. All rights reserved.
     Use of this source code is governed by The MIT License (MIT) that can be found in the LICENSE file.
     Visit gethinode.com/license for more details.
--->
+*/}}
 
 {{ $error := false }}
 
@@ -29,58 +29,72 @@
     {{- end -}}
 {{- end -}}
 
-<!-- Validate arguments -->
-{{ if partial "utilities/IsInvalidArgs.html" (dict "structure" "animation" "args" . "group" "partial") }}
-    {{- errorf "partial [assets/animation.html] - Invalid arguments" -}}
-    {{ $error = true }}
+{{/* Initialize arguments */}}
+{{ $args := partial "utilities/InitArgs.html" (dict "structure" "animation" "args" . "group" "partial") }}
+{{ if or $args.err $args.warnmsg }}
+    {{ partial (cond $args.err "utilities/LogErr.html" "utilities/LogWarn.html") (dict 
+        "partial" "assets/animation.html" 
+        "warnid"  "warn-invalid-arguments"
+        "msg"     "Invalid arguments"
+        "details" ($args.errmsg | append $args.warnmsg)
+        "file"    page.File
+    )}}
+    {{ $error = $args.err }}
 {{ end }}
 
-<!-- Initialize arguments -->
-{{- $id := .id -}}
-{{- $class := .class -}}
-{{- $loop := .loop | default true -}}
-{{- $auto := .auto | default true -}}
+{{/* Initialize local arguments */}}
+{{- $auto := or $args.autoplay $args.auto -}}
 {{- $hover := .hover | default false -}}
-{{- $title := .title -}}
-{{- $data := .data -}}
-{{- $mode := .mode | default false -}}
+{{- $title := or $args.label $args.title -}}
+{{- $data := or $args.animationData $args.data -}}
 {{- $modes := site.Params.main.modes | default (slice "light" "dark") -}}
-
 {{- $files := slice -}}
 
-{{- if $mode -}}
-    {{- $ext := path.Ext $data -}}
-    {{- $base := strings.TrimSuffix $ext $data -}}
-    {{- range $suffix := $modes -}}
-        {{- $base = strings.TrimSuffix (printf "-%s" $suffix) $base -}}
-    {{- end -}}
-
-    {{- range $suffix := $modes -}}
-        {{- $files = $files | append (dict "path" (printf "%s-%s%s" $base $suffix $ext) "mode" $suffix) -}}
-    {{- end -}}
-{{ else }}
-    {{- $files = $files | append (dict "path" $data "mode" "") -}}    
+{{- if not $data -}}
+    {{ partial "utilities/LogErr.html" (dict 
+        "partial"  "assets/animation.html" 
+        "msg"      "Invalid arguments"
+        "details"  (slice "Missing argument 'animation-data'")
+        "file"     page.File
+    )}}
+    {{- $error = true -}}
 {{- end -}}
 
-<!-- Main code -->
-{{ range $files }}
-    {{- $display := $class -}}
-    {{- $current := .mode }}
-    {{ if $current }}
-        {{- range $none := $modes -}}
-            {{- if ne $none $current -}}
-                {{ $display = printf "%s d-none-%s" $class $none }}
-            {{- end -}}
+{{/* Main code */}}
+{{ if not $error }}
+    {{- if $args.mode -}}
+        {{- $ext := path.Ext $data -}}
+        {{- $base := strings.TrimSuffix $ext $data -}}
+        {{- range $suffix := $modes -}}
+            {{- $base = strings.TrimSuffix (printf "-%s" $suffix) $base -}}
         {{- end -}}
-    {{ end -}}
-    
-    {{- partial "inline/animation-body.html" (dict 
-        "id" $id
-        "class" $display
-        "loop" $loop
-        "auto" $auto
-        "hover" $hover
-        "title" $title
-        "data" .path)
-    -}}
+
+        {{- range $suffix := $modes -}}
+            {{- $files = $files | append (dict "path" (printf "%s-%s%s" $base $suffix $ext) "mode" $suffix) -}}
+        {{- end -}}
+    {{ else }}
+        {{- $files = $files | append (dict "path" $data "mode" "") -}}    
+    {{- end -}}
+
+    {{ range $files }}
+        {{- $display := $args.class -}}
+        {{- $current := .mode }}
+        {{ if $current }}
+            {{- range $none := $modes -}}
+                {{- if ne $none $current -}}
+                    {{ $display = printf "%s d-none-%s" $args.class $none }}
+                {{- end -}}
+            {{- end -}}
+        {{ end -}}
+        
+        {{- partial "inline/animation-body.html" (dict 
+            "id"    $args.id
+            "class" $display
+            "loop"  $args.loop
+            "auto"  $args.auto
+            "hover" $args.hover
+            "title" $title
+            "data"  $data)
+        -}}
+    {{ end }}
 {{ end }}

@@ -6,8 +6,8 @@ date: 2023-09-29
 
 ## Animate automatically
 
-{{< animation data="adrock.json" loop=true >}}
+{{< animation animation-data="adrock.json" loop=true >}}
 
 ## Animate on hover
 
-{{< animation data="gatin.json" auto=false hover=true loop=false >}}
+{{< animation animation-data="gatin.json" autoplay=false hover=true loop=false >}}

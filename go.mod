@@ -4,5 +4,5 @@ go 1.19
 
 require (
 	github.com/airbnb/lottie-web v5.12.2+incompatible // indirect
-	github.com/gethinode/mod-utils/v4 v4.8.2 // indirect
+	github.com/gethinode/mod-utils/v4 v4.8.4 // indirect
 )

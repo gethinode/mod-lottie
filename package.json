@@ -1,6 +1,6 @@
 {
   "name": "@gethinode/mod-lottie",
-  "version": "1.6.0",
+  "version": "0.0.0-semantically-released",
   "description": "A Hugo module to add animations powered by Lottie to your Hinode site",
   "keywords": [
     "hugo",
@@ -58,7 +58,6 @@
       "@semantic-release/commit-analyzer",
       "@semantic-release/release-notes-generator",
       "@semantic-release/github",
-      "@semantic-release/npm",
       [
         "@semantic-release/exec",
         {

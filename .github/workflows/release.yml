@@ -23,8 +23,12 @@ jobs:
         with:
           node-version: "lts/*"
 
-      - name: Perform clean install of npm
-        run: npm ci
+      # TODO: disabled on 24/NOV/25 due to GitHub runner issue
+      # - name: Perform clean install of npm
+      #   run: npm ci
+
+      - name: Perform install of npm
+        run: npm i
 
       - name: Create release
         env:

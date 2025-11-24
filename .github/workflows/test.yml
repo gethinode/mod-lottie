@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest, windows-latest, ubuntu-latest]
-        node-version: [20.x, 22.x]
+        node-version: [22.x, 24.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     runs-on: ${{ matrix.os }}
@@ -34,8 +34,12 @@ jobs:
         cache: 'npm'
         cache-dependency-path: '**/package-lock.json'
 
-    - name: Perform clean install of npm
-      run: npm ci
+    # TODO: disabled on 24/NOV/25 due to GitHub runner issue
+    # - name: Perform clean install of npm
+    #   run: npm ci
+
+    - name: Perform install of npm
+      run: npm i
 
     - name: Run tests
       run: npm run test

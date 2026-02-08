@@ -21,8 +21,8 @@
         {{- $data = partial "utilities/GetStaticURL" (dict "url" $data) -}}
         <div id="{{ $id }}" class="lottie-animation{{ with $class}} {{ . }}{{ end }}"
             {{ with $loop }}data-lottie-loop="{{ . }}"{{ end }}
-            {{ with $auto }}data-lottie-auto="{{ . }}"{{ end }}
-            {{ with $hover }}data-lottie-hover="{{ . }}"{{ end }}
+            {{ if ne $auto nil }}data-lottie-auto="{{ $auto }}"{{ end }}
+            {{ if ne $hover nil }}data-lottie-hover="{{ $hover }}"{{ end }}
             {{ with $title }}data-lottie-title="{{ . }}"{{ end }}
             {{ with $data }}data-lottie-data="{{ . }}"{{ end }}>
         </div>
@@ -43,8 +43,11 @@
 {{ end }}
 
 {{/* Initialize local arguments */}}
-{{- $auto := or $args.autoplay $args.auto -}}
-{{- $hover := .hover | default false -}}
+{{- $auto := $args.autoplay -}}
+{{- if eq $auto nil -}}
+    {{- $auto = $args.auto -}}
+{{- end -}}
+{{- $hover := $args.hover -}}
 {{- $title := or $args.label $args.title -}}
 {{- $data := or $args.animationData $args.data -}}
 {{- $modes := site.Params.main.modes | default (slice "light" "dark") -}}
@@ -87,12 +90,12 @@
             {{- end -}}
         {{ end -}}
         
-        {{- partial "inline/animation-body.html" (dict 
+        {{- partial "inline/animation-body.html" (dict
             "id"    $args.id
             "class" $display
             "loop"  $args.loop
-            "auto"  $args.auto
-            "hover" $args.hover
+            "auto"  $auto
+            "hover" $hover
             "title" $title
             "data"  $data)
         -}}

@@ -55,11 +55,15 @@
 
 <!-- Main code -->
 {{- if not $error -}}
-    {{ partial "assets/animation.html" (dict 
+    {{- $autoplay := $args.autoplay -}}
+    {{- if eq $autoplay nil -}}
+        {{- $autoplay = $args.auto -}}
+    {{- end -}}
+    {{ partial "assets/animation.html" (dict
         "id"             $id
         "class"          $args.class
         "loop"           $args.loop
-        "autoplay"       (or $args.autoplay $args.auto)
+        "autoplay"       $autoplay
         "hover"          $args.hover
         "label"          (or $args.label $args.title)
         "animation-data" (or $args.animationData $args.data)

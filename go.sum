@@ -104,3 +104,17 @@ github.com/gethinode/mod-utils/v4 v4.21.5 h1:X3dxeBGDpFCsFcqk21l6eWtUYYGIQcExvHn
 github.com/gethinode/mod-utils/v4 v4.21.5/go.mod h1:bYmvRdAo4ICy5MpSGafDvO4p5bTDpsDKFCPL3bH0mN4=
 github.com/gethinode/mod-utils/v5 v5.0.0 h1:iF8FtgzQu9BW7R94sJ77gltSZO2QkAv60EMNvtTSpIA=
 github.com/gethinode/mod-utils/v5 v5.0.0/go.mod h1:PwQN4oOjA6k/vet11JueJ9asZMgL0DBa3jyS9tPkBWU=
+github.com/gethinode/mod-utils/v5 v5.2.0 h1:ad0AbdNfJi7hIOy8KAC2e1gXCsh2LiIhIJACaEMllM8=
+github.com/gethinode/mod-utils/v5 v5.2.0/go.mod h1:PwQN4oOjA6k/vet11JueJ9asZMgL0DBa3jyS9tPkBWU=
+github.com/gethinode/mod-utils/v5 v5.3.1 h1:5bmhPm3Wunn3/8MfTCtqIQRUn1efnNpVduPUzh+H3rw=
+github.com/gethinode/mod-utils/v5 v5.3.1/go.mod h1:PwQN4oOjA6k/vet11JueJ9asZMgL0DBa3jyS9tPkBWU=
+github.com/gethinode/mod-utils/v5 v5.3.2 h1:+i/JTHyc+S3dd6yNQAcMuVyfsgLcy0n8dxWxaqjtf2A=
+github.com/gethinode/mod-utils/v5 v5.3.2/go.mod h1:PwQN4oOjA6k/vet11JueJ9asZMgL0DBa3jyS9tPkBWU=
+github.com/gethinode/mod-utils/v5 v5.4.1 h1:iaQ8RTvK9p0JevaDW0c84fl/arDnDe2hu8FmgURt/l4=
+github.com/gethinode/mod-utils/v5 v5.4.1/go.mod h1:PwQN4oOjA6k/vet11JueJ9asZMgL0DBa3jyS9tPkBWU=
+github.com/gethinode/mod-utils/v5 v5.4.2 h1:/FSQ8yJ8rQaRDiA0sgcrrZX/asaFjjJMNap2pvQKZFk=
+github.com/gethinode/mod-utils/v5 v5.4.2/go.mod h1:PwQN4oOjA6k/vet11JueJ9asZMgL0DBa3jyS9tPkBWU=
+github.com/gethinode/mod-utils/v5 v5.5.0 h1:codE7hGNoORJ6GDOuFDXMDqQjw7yX89lfVHADEWacBs=
+github.com/gethinode/mod-utils/v5 v5.5.0/go.mod h1:PwQN4oOjA6k/vet11JueJ9asZMgL0DBa3jyS9tPkBWU=
+github.com/gethinode/mod-utils/v5 v5.6.0 h1:QdG5qu3Xc4VBEp/g5DMfjEkbDftM3zMBHd22qrAYSdw=
+github.com/gethinode/mod-utils/v5 v5.6.0/go.mod h1:PwQN4oOjA6k/vet11JueJ9asZMgL0DBa3jyS9tPkBWU=

@@ -1,3 +1,6 @@
+icon: animation
+example: |
+  {{< animation animation-data="path/to/animation.json" loop="true" autoplay="true" >}}
 comment: >-
   Use the animation shortcode to show an After Effects animation, powered by
   Lottie. The Lottie library supports animations that have been exported as JSON

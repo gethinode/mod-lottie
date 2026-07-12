@@ -1,8 +1,8 @@
-module github.com/gethinode/mod-lottie/v2
+module github.com/gethinode/mod-lottie/v3
 
 go 1.19
 
 require (
 	github.com/airbnb/lottie-web v5.13.0+incompatible // indirect
-	github.com/gethinode/mod-utils/v5 v5.23.4 // indirect
+	github.com/gethinode/mod-utils/v6 v6.0.1 // indirect
 )

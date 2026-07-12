@@ -21,30 +21,41 @@
         {{- $data = partial "utilities/GetStaticURL" (dict "url" $data) -}}
         <div id="{{ $id }}" class="lottie-animation{{ with $class}} {{ . }}{{ end }}"
             {{ with $loop }}data-lottie-loop="{{ . }}"{{ end }}
-            {{ if ne $auto nil }}data-lottie-auto="{{ $auto }}"{{ end }}
-            {{ if ne $hover nil }}data-lottie-hover="{{ $hover }}"{{ end }}
+            data-lottie-auto="{{ $auto }}"
+            data-lottie-hover="{{ $hover }}"
             {{ with $title }}data-lottie-title="{{ . }}"{{ end }}
             {{ with $data }}data-lottie-data="{{ . }}"{{ end }}>
         </div>
     {{- end -}}
 {{- end -}}
 
-{{/* Initialize arguments */}}
-{{ $args := partial "utilities/InitArgs.html" (dict "structure" "animation" "args" . "group" "partial") }}
-{{ if or $args.err $args.warnmsg }}
-    {{ partial (cond $args.err "utilities/LogErr.html" "utilities/LogWarn.html") (dict 
-        "partial" "assets/animation.html" 
+{{/*
+    Initialize arguments. This partial is a public entry point that can be invoked directly by
+    Hinode and other modules with values sourced from page content, so it validates non-strict
+    like a site-authored-content entry point.
+*/}}
+{{ $result := partial "utilities/Args.html" (dict "structure" "animation" "args" . "group" "partial" "strict" false) }}
+{{ $args := $result.args }}
+{{ if or $result.err $result.warnmsg }}
+    {{ partial (cond $result.err "utilities/LogErr.html" "utilities/LogWarn.html") (dict
+        "partial" "assets/animation.html"
         "warnid"  "warn-invalid-arguments"
         "msg"     "Invalid arguments"
-        "details" ($args.errmsg | append $args.warnmsg)
+        "details" ($result.errmsg | append $result.warnmsg)
         "file"    page.File
     )}}
-    {{ $error = $args.err }}
+    {{ $error = $result.err }}
 {{ end }}
 
-{{/* Initialize local arguments */}}
+{{/*
+    Initialize local arguments. The "autoplay" and "hover" arguments always carry schema defaults
+    (false), so neither is nil by the time it reaches here. Only fall back to the deprecated
+    "auto" argument when the caller genuinely left "autoplay" unset (per $result.defaulted);
+    otherwise a caller's explicit autoplay=false would be silently overridden by a stale
+    deprecated value.
+*/}}
 {{- $auto := $args.autoplay -}}
-{{- if eq $auto nil -}}
+{{- if and (in $result.defaulted "autoplay") (ne $args.auto nil) -}}
     {{- $auto = $args.auto -}}
 {{- end -}}
 {{- $hover := $args.hover -}}

@@ -6,18 +6,22 @@
 
 {{ $error := false }}
 
-{{/* Validate and initialize arguments */}}
-{{ $args := partial "utilities/InitArgs.html" (dict "structure" "animation" "args" .Params "named" .IsNamedParams "group" "shortcode") }}
-{{ if or $args.err $args.warnmsg }}
-    {{ partial (cond $args.err "utilities/LogErr.html" "utilities/LogWarn.html") (dict 
-        "partial"  "shortcodes/animation.html" 
+{{/*
+    Validate and initialize arguments. This shortcode is a user-facing content entry point, so it
+    validates non-strict (warnings-first rollout for site-authored inputs).
+*/}}
+{{ $result := partial "utilities/Args.html" (dict "structure" "animation" "args" .Params "named" .IsNamedParams "group" "shortcode" "strict" false) }}
+{{ $args := $result.args }}
+{{ if or $result.err $result.warnmsg }}
+    {{ partial (cond $result.err "utilities/LogErr.html" "utilities/LogWarn.html") (dict
+        "partial"  "shortcodes/animation.html"
         "warnid"   "warn-invalid-arguments"
         "msg"      "Invalid arguments"
-        "details"  ($args.errmsg | append $args.warnmsg)
+        "details"  ($result.errmsg | append $result.warnmsg)
         "file"     page.File
         "position" .Position
     )}}
-    {{ $error = $args.err }}
+    {{ $error = $result.err }}
 {{ end }}
 
 {{/* Initialize arguments and default values */}}
@@ -55,8 +59,14 @@
 
 <!-- Main code -->
 {{- if not $error -}}
+    {{/*
+        The "autoplay" argument always carries a schema default of false, so it is never nil by
+        the time it reaches here. Only fall back to the deprecated "auto" argument when the
+        caller genuinely left "autoplay" unset (per $result.defaulted); otherwise a caller's
+        explicit autoplay=false would be silently overridden by a stale deprecated value.
+    */}}
     {{- $autoplay := $args.autoplay -}}
-    {{- if eq $autoplay nil -}}
+    {{- if and (in $result.defaulted "autoplay") (ne $args.auto nil) -}}
         {{- $autoplay = $args.auto -}}
     {{- end -}}
     {{ partial "assets/animation.html" (dict

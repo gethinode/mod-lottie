@@ -33,8 +33,8 @@ importers:
         specifier: ^0.13.0
         version: 0.13.0
       npm:
-        specifier: ^12.0.0
-        version: 12.0.0
+        specifier: ^12.0.1
+        version: 12.0.1
       rimraf:
         specifier: ^6.1.3
         version: 6.1.3
@@ -1135,8 +1135,8 @@ packages:
       - validate-npm-package-name
       - which
 
-  npm@12.0.0:
-    resolution: {integrity: sha512-qzvPQfNSY7louiM6rv7dL0hi5esBGLn1lLwxbdyL5XOIssWzoYMwn8xqvWhYcZL6onTkenYSxrtKxsFrFbUFyw==}
+  npm@12.0.1:
+    resolution: {integrity: sha512-L5T9i/YAQWQWqTS/xZxJkei/9zcu99hCeE4qi41IyBVV7mRQad3qc2JfuOktwmH+qwGI/V2rbCL+/UYxb1+RQA==}
     engines: {node: ^22.22.2 || ^24.15.0 || >=26.0.0}
     hasBin: true
     bundledDependencies:
@@ -2799,7 +2799,7 @@ snapshots:
 
   npm@11.18.0: {}
 
-  npm@12.0.0: {}
+  npm@12.0.1: {}
 
   object-assign@4.1.1: {}
 

@@ -13,7 +13,10 @@ arguments:
   id:
   class:
   loop:
+  # animations play automatically by default (v5 behavior); the global
+  # autoplay argument defaults to false, which would freeze the default demo
   autoplay:
+    default: true
   hover:
   label:
   mode:

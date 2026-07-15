@@ -25,7 +25,7 @@
 {{ end }}
 
 {{/* Initialize arguments and default values */}}
-{{- $id := or $args.id  (printf "lottie-animation-%d" .Ordinal) -}}
+{{- $id := or $args.id (partial "utilities/UniqueID.html" (dict "prefix" "lottie-animation")) -}}
 {{- $modes := site.Params.main.modes | default (slice "light" "dark") -}}
 {{- $data := or $args.animationData $args.data -}}
 {{- if not $data -}}

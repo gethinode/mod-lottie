@@ -18,7 +18,7 @@
         "warnid"   "warn-invalid-arguments"
         "msg"      "Invalid arguments"
         "details"  ($result.errmsg | append $result.warnmsg)
-        "file"     page.File
+        "file"     .Page.File
         "position" .Position
     )}}
     {{ $error = $result.err }}
@@ -33,7 +33,7 @@
         "partial"  "shortcodes/animation.html" 
         "msg"      "Invalid arguments"
         "details"  (slice "Missing argument 'animation-data'")
-        "file"     page.File
+        "file"     .Page.File
         "position" .Position
     )}}
     {{- $error = true -}}

@@ -59,6 +59,9 @@
 
 <!-- Main code -->
 {{- if not $error -}}
+    {{/* Register the lottie module as a page dependency, so the page's script handler includes
+         its assets without requiring `modules = ["lottie"]` in front matter. */}}
+    {{- partial "utilities/AddModule.html" (dict "page" .Page "module" "lottie") -}}
     {{/*
         The "autoplay" argument always carries a schema default of false, so it is never nil by
         the time it reaches here. Only fall back to the deprecated "auto" argument when the

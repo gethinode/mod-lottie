@@ -45,7 +45,7 @@
     "hugo-extended": "^0.169.0",
     "husky": "^9.1.7",
     "install": "^0.13.0",
-    "npm": "^12.2.2",
+    "npm": "^12.2.3",
     "rimraf": "^6.1.4",
     "semantic-release": "^26.0.1"
   },

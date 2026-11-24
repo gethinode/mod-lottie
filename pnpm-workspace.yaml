@@ -6,3 +6,7 @@ allowBuilds:
 minimumReleaseAgeExclude:
   - "@gethinode/*"
   - "npm" # devDependency pin; official npm CLI, high-trust publisher, freshly bumped by dependabot
+
+# Select standard Hugo archives from 0.170.0 and Extended archives for older Hugo.
+patchedDependencies:
+  hugo-extended@0.170.0: patches/hugo-extended@0.170.0.patch
